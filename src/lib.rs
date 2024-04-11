@@ -2,5 +2,7 @@ mod document;
 
 pub fn build_document() {
   let document = crate::document::Document::new();
-  document.write();
+  if let Err(e) = document.write() {
+    println!("Failed to write files: {}", e);
+  }
 }
