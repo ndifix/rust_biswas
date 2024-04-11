@@ -1,3 +1,5 @@
+extern crate biswas;
+
 fn main() {
-    println!("Hello, world!");
+  biswas::build_document();
 }
