@@ -16,7 +16,7 @@ impl Document {
   pub fn new() -> Document {
     let tmp_dir = String::from("tmp");
 
-    let content_types = xml_file::XmlFile::new(tmp_dir.clone() + "/[Content_Types].xml");
+    let content_types = xml_file::XmlFile::new(tmp_dir.clone() + "/[Content_Types].xml", "Types");
 
     Document {
       presemtation: presentation::Presentation::new(&tmp_dir),

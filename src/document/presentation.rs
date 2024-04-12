@@ -15,7 +15,7 @@ pub struct Presentation {
 impl Presentation {
   pub fn new(doc_path: &str) -> Presentation {
     let part_dir = String::new() + doc_path + "/ppt";
-    let xml_file = xml_file::XmlFile::new(part_dir.clone() + "/presentation.xml");
+    let xml_file = xml_file::XmlFile::new(part_dir.clone() + "/presentation.xml", "presentation");
 
     Presentation {
       theme: theme::Theme::new(&part_dir),
