@@ -1,24 +1,26 @@
-use std::{fs, io::{self, Write}};
+use std::io::{self, Write};
 
-pub mod xml_file;
+mod xml_element;
 
-struct XmlElement {
-  tag: String,
+pub struct XmlFile {
+  path: String,
+  root_element: xml_element::XmlElement,
 }
 
-impl XmlElement {
-  fn new(tag: &str) -> XmlElement {
-    XmlElement {
-      tag: tag.to_string(),
+impl XmlFile {
+  pub fn new(path: String, tag: &str) -> XmlFile {
+    XmlFile {
+      path,
+      root_element: xml_element::XmlElement::new(tag),
     }
   }
 
-  pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
-    let head = "<".to_string() + &self.tag + ">";
-    writer.write_all(head.as_bytes())?;
+  pub fn write(&self) -> Result<(), io::Error>{
+    let file = std::fs::File::create(&self.path)?;
 
-    let tail = "</".to_string() + &self.tag + ">";
-    writer.write_all(tail.as_bytes())?;
+    let mut writer = io::BufWriter::new(file);
+    self.root_element.write(&mut writer)?;
+    writer.flush()?;
 
     Ok(())
   }
