@@ -8,6 +8,8 @@ use crate::open_xml::xml_file;
 
 pub struct Document {
   tmp_dir: String,
+  rels_dir: String,
+  rels: xml_file::DocumentRelationships,
   presemtation: presentation::Presentation,
   content_types: xml_file::ContentTypes,
 }
@@ -15,11 +17,14 @@ pub struct Document {
 impl Document {
   pub fn new() -> Document {
     let tmp_dir = String::from("tmp");
+    let rels_dir = tmp_dir.clone() + "/_rels";
 
     Document {
       presemtation: presentation::Presentation::new(&tmp_dir),
       content_types: xml_file::ContentTypes::new(tmp_dir.clone() + "/[Content_Types].xml"),
       tmp_dir,
+      rels: xml_file::DocumentRelationships::new(rels_dir.clone() + "/.rels"),
+      rels_dir,
     }
   }
 
@@ -37,6 +42,11 @@ impl Document {
     }
 
     if let Err(e) = self.presemtation.write() {
+      return Err(e);
+    }
+
+    fs::create_dir(&self.rels_dir)?;
+    if let Err(e) = self.rels.write() {
       return Err(e);
     }
 

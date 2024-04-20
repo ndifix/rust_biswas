@@ -16,6 +16,11 @@ pub struct ContentTypes {
   root_element: element::Types,
 }
 
+pub struct DocumentRelationships {
+  path: String,
+  root_element: element::Relationships,
+}
+
 impl Presentation {
   pub fn new(path: String) -> Presentation {
     Presentation {
@@ -59,6 +64,25 @@ impl ContentTypes {
     ContentTypes {
       path,
       root_element: super::element::Types::new(),
+    }
+  }
+
+  pub fn write(&self) -> Result<(), io::Error> {
+    let file = std::fs::File::create(&self.path)?;
+
+    let mut writer = io::BufWriter::new(file);
+    self.root_element.write(&mut writer)?;
+    writer.flush()?;
+
+    Ok(())
+  }
+}
+
+impl DocumentRelationships {
+  pub fn new(path: String) -> DocumentRelationships {
+    DocumentRelationships {
+      path,
+      root_element: super::element::Relationships::new(),
     }
   }
 
