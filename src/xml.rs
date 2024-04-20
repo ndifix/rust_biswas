@@ -4,14 +4,14 @@ mod xml_element;
 
 pub struct XmlFile {
   path: String,
-  root_element: xml_element::XmlElement,
+  root_element: xml_element::XmlRootElement,
 }
 
 impl XmlFile {
   pub fn new(path: String, tag: &str) -> XmlFile {
     XmlFile {
       path,
-      root_element: xml_element::XmlElement::new(tag),
+      root_element: xml_element::XmlRootElement::new(tag),
     }
   }
 
