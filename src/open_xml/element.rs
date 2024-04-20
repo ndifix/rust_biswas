@@ -17,11 +17,9 @@ impl Types {
   }
 
   pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
-    let head = "<".to_string() + &self.tag + ">";
-    writer.write_all(head.as_bytes())?;
+    write_head_tag(writer, &self.tag)?;
 
-    let tail = "</".to_string() + &self.tag + ">";
-    writer.write_all(tail.as_bytes())?;
+    write_tail_tag(writer, &self.tag)?;
 
     Ok(())
   }
@@ -35,12 +33,23 @@ impl Relationships {
   }
 
   pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
-    let head = "<".to_string() + &self.tag + ">";
-    writer.write_all(head.as_bytes())?;
-
-    let tail = "</".to_string() + &self.tag + ">";
-    writer.write_all(tail.as_bytes())?;
+    write_head_tag(writer, &self.tag)?;
+    write_tail_tag(writer, &self.tag)?;
 
     Ok(())
   }
+}
+
+fn write_head_tag(writer: &mut io::BufWriter<fs::File>, tag: &str) -> Result<(), io::Error> {
+  let head = String::new() + "<" + tag + ">";
+  writer.write_all(head.as_bytes())?;
+
+  Ok(())
+}
+
+fn write_tail_tag(writer: &mut io::BufWriter<fs::File>, tag: &str) -> Result<(), io::Error> {
+  let tail = String::new() + "</" + tag + ">";
+  writer.write_all(tail.as_bytes())?;
+
+  Ok(())
 }

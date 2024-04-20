@@ -1,4 +1,4 @@
-use std::{fs, io::{self, Write}};
+use std::{fs, io};
 
 pub struct Presentation {
   tag: String,
@@ -16,11 +16,9 @@ impl Presentation {
   }
 
   pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
-    let head = "<".to_string() + &self.tag + ">";
-    writer.write_all(head.as_bytes())?;
+    super::write_head_tag(writer, &self.tag)?;
 
-    let tail = "</".to_string() + &self.tag + ">";
-    writer.write_all(tail.as_bytes())?;
+    super::write_tail_tag(writer, &self.tag)?;
 
     Ok(())
   }
@@ -34,11 +32,9 @@ impl PresentationProperties {
   }
 
   pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
-    let head = "<".to_string() + &self.tag + ">";
-    writer.write_all(head.as_bytes())?;
+    super::write_head_tag(writer, &self.tag)?;
 
-    let tail = "</".to_string() + &self.tag + ">";
-    writer.write_all(tail.as_bytes())?;
+    super::write_tail_tag(writer, &self.tag)?;
 
     Ok(())
   }
