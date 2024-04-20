@@ -10,7 +10,7 @@ pub struct Document {
   tmp_dir: String,
   rels_dir: String,
   rels: xml_file::DocumentRelationships,
-  presemtation: presentation::Presentation,
+  presentation: presentation::Presentation,
   content_types: xml_file::ContentTypes,
 }
 
@@ -20,7 +20,7 @@ impl Document {
     let rels_dir = tmp_dir.clone() + "/_rels";
 
     Document {
-      presemtation: presentation::Presentation::new(&tmp_dir),
+      presentation: presentation::Presentation::new(&tmp_dir),
       content_types: xml_file::ContentTypes::new(tmp_dir.clone() + "/[Content_Types].xml"),
       tmp_dir,
       rels: xml_file::DocumentRelationships::new(rels_dir.clone() + "/.rels"),
@@ -41,7 +41,7 @@ impl Document {
       return Err(e);
     }
 
-    if let Err(e) = self.presemtation.write() {
+    if let Err(e) = self.presentation.write() {
       return Err(e);
     }
 
