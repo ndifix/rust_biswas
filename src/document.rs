@@ -4,24 +4,22 @@ use std::io;
 use std::fs;
 use std::path;
 
-use crate::xml;
+use crate::{xml::XmlFile, open_xml};
 
 pub struct Document {
   tmp_dir: String,
   presemtation: presentation::Presentation,
-  content_types: xml::XmlFile,
+  content_types: open_xml::ContentTypes,
 }
 
 impl Document {
   pub fn new() -> Document {
     let tmp_dir = String::from("tmp");
 
-    let content_types = xml::XmlFile::new(tmp_dir.clone() + "/[Content_Types].xml", "Types");
-
     Document {
       presemtation: presentation::Presentation::new(&tmp_dir),
+      content_types: open_xml::ContentTypes::new(tmp_dir.clone() + "/[Content_Types].xml"),
       tmp_dir,
-      content_types,
     }
   }
 

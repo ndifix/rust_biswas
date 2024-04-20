@@ -3,11 +3,11 @@ mod theme;
 
 use std::{fs, io};
 
-use crate::xml;
+use crate::{xml::XmlFile, open_xml};
 
 pub struct Presentation {
   part_dir: String,
-  xml_file: xml::XmlFile,
+  xml_file: open_xml::Presentation,
   theme: theme::Theme,
   slide_masters: slide_master::SlideMasters,
 }
@@ -15,7 +15,7 @@ pub struct Presentation {
 impl Presentation {
   pub fn new(doc_path: &str) -> Presentation {
     let part_dir = String::new() + doc_path + "/ppt";
-    let xml_file = xml::XmlFile::new(part_dir.clone() + "/presentation.xml", "presentation");
+    let xml_file = open_xml::Presentation::new(part_dir.clone() + "/presentation.xml");
 
     Presentation {
       theme: theme::Theme::new(&part_dir),

@@ -1,5 +1,6 @@
 mod document;
 mod xml;
+mod open_xml;
 
 pub fn build_document() {
   let document = crate::document::Document::new();
