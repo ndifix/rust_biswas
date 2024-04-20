@@ -6,6 +6,11 @@ pub struct Presentation {
   root_element: presentation::Presentation,
 }
 
+pub struct PresentationProperties {
+  path: String,
+  root_element: presentation::PresentationProperties,
+}
+
 pub struct ContentTypes {
   path: String,
   root_element: element::Types,
@@ -16,6 +21,25 @@ impl Presentation {
     Presentation {
       path,
       root_element: presentation::Presentation::new(),
+    }
+  }
+
+  pub fn write(&self) -> Result<(), io::Error> {
+    let file = std::fs::File::create(&self.path)?;
+
+    let mut writer = io::BufWriter::new(file);
+    self.root_element.write(&mut writer)?;
+    writer.flush()?;
+
+    Ok(())
+  }
+}
+
+impl PresentationProperties {
+  pub fn new(path: String) -> PresentationProperties {
+    PresentationProperties {
+      path,
+      root_element: presentation::PresentationProperties::new(),
     }
   }
 
