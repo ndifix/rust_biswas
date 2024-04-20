@@ -1,5 +1,4 @@
 mod document;
-mod xml;
 mod open_xml;
 
 pub fn build_document() {

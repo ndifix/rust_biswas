@@ -1,5 +1,4 @@
 use std::io::{self, Write};
-use crate::xml;
 use super::element::{self, presentation};
 
 pub struct Presentation {
@@ -19,19 +18,8 @@ impl Presentation {
       root_element: presentation::Presentation::new(),
     }
   }
-}
 
-impl ContentTypes {
-  pub fn new(path: String) -> ContentTypes {
-    ContentTypes {
-      path,
-      root_element: super::element::Types::new(),
-    }
-  }
-}
-
-impl xml::XmlFile for Presentation {
-  fn write(&self) -> Result<(), io::Error> {
+  pub fn write(&self) -> Result<(), io::Error> {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);
@@ -42,8 +30,15 @@ impl xml::XmlFile for Presentation {
   }
 }
 
-impl xml::XmlFile for ContentTypes {
-  fn write(&self) -> Result<(), io::Error> {
+impl ContentTypes {
+  pub fn new(path: String) -> ContentTypes {
+    ContentTypes {
+      path,
+      root_element: super::element::Types::new(),
+    }
+  }
+
+  pub fn write(&self) -> Result<(), io::Error> {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);

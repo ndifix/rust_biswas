@@ -4,7 +4,7 @@ use std::io;
 use std::fs;
 use std::path;
 
-use crate::{xml::XmlFile, open_xml::xml_file};
+use crate::open_xml::xml_file;
 
 pub struct Document {
   tmp_dir: String,

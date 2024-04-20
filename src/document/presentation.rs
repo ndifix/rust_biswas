@@ -3,7 +3,7 @@ mod theme;
 
 use std::{fs, io};
 
-use crate::{xml::XmlFile, open_xml::xml_file};
+use crate::open_xml::xml_file;
 
 pub struct Presentation {
   part_dir: String,
