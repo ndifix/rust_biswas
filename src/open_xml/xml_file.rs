@@ -1,4 +1,5 @@
 use std::io::{self, Write};
+use std::fs;
 use super::element::{self, presentation};
 
 pub struct Presentation {
@@ -33,6 +34,7 @@ impl Presentation {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);
+    write_declaration(&mut writer)?;
     self.root_element.write(&mut writer)?;
     writer.flush()?;
 
@@ -52,6 +54,7 @@ impl PresentationProperties {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);
+    write_declaration(&mut writer)?;
     self.root_element.write(&mut writer)?;
     writer.flush()?;
 
@@ -71,6 +74,7 @@ impl ContentTypes {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);
+    write_declaration(&mut writer)?;
     self.root_element.write(&mut writer)?;
     writer.flush()?;
 
@@ -90,9 +94,16 @@ impl DocumentRelationships {
     let file = std::fs::File::create(&self.path)?;
 
     let mut writer = io::BufWriter::new(file);
+    write_declaration(&mut writer)?;
     self.root_element.write(&mut writer)?;
     writer.flush()?;
 
     Ok(())
   }
+}
+
+fn write_declaration(writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
+  let declaration = r#"<?xml version="1.0" encoding="UTF-8" standalone="yes"?>"#;
+  writer.write_all(declaration.as_bytes())?;
+  Ok(())
 }
