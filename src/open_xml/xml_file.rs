@@ -1,21 +1,22 @@
 use std::io::{self, Write};
-use crate::xml::{self, xml_element};
+use crate::xml;
+use super::element::{self, presentation};
 
 pub struct Presentation {
   path: String,
-  root_element: xml_element::XmlRootElement,
+  root_element: presentation::Presentation,
 }
 
 pub struct ContentTypes {
   path: String,
-  root_element: super::element::Types,
+  root_element: element::Types,
 }
 
 impl Presentation {
   pub fn new(path: String) -> Presentation {
     Presentation {
       path,
-      root_element: xml_element::XmlRootElement::new("presentation"),
+      root_element: presentation::Presentation::new(),
     }
   }
 }

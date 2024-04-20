@@ -1,13 +1,13 @@
 use std::{fs, io::{self, Write}};
 
-pub struct XmlRootElement {
+pub struct Presentation {
   tag: String,
 }
 
-impl XmlRootElement {
-  pub fn new(tag: &str) -> XmlRootElement {
-    XmlRootElement {
-      tag: tag.to_string(),
+impl Presentation {
+  pub fn new() -> Presentation {
+    Presentation {
+      tag: "presentation".to_string(),
     }
   }
 
