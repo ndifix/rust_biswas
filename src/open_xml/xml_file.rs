@@ -8,7 +8,7 @@ pub struct Presentation {
 
 pub struct ContentTypes {
   path: String,
-  root_element: xml_element::XmlRootElement,
+  root_element: super::element::Types,
 }
 
 impl Presentation {
@@ -24,7 +24,7 @@ impl ContentTypes {
   pub fn new(path: String) -> ContentTypes {
     ContentTypes {
       path,
-      root_element: xml_element::XmlRootElement::new("Types"),
+      root_element: super::element::Types::new(),
     }
   }
 }
