@@ -1,4 +1,4 @@
-use std::{fs::File, io::{self, Write}};
+use std::{fs, io::{self, Write}};
 
 pub mod xml_file;
 
@@ -13,7 +13,7 @@ impl XmlElement {
     }
   }
 
-  pub fn write(&self, writer: &mut io::BufWriter<File>) -> Result<(), io::Error> {
+  pub fn write(&self, writer: &mut io::BufWriter<fs::File>) -> Result<(), io::Error> {
     let head = "<".to_string() + &self.tag + ">";
     writer.write_all(head.as_bytes())?;
 

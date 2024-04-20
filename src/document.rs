@@ -2,7 +2,7 @@ mod presentation;
 
 use std::io;
 use std::fs;
-use std::path::Path;
+use std::path;
 
 use crate::xml::xml_file;
 
@@ -26,7 +26,7 @@ impl Document {
   }
 
   pub fn write(&self) -> Result<(), io::Error> {
-    let path = Path::new(&self.tmp_dir);
+    let path = path::Path::new(&self.tmp_dir);
     if path.is_dir() {
       let error = io::Error::new(io::ErrorKind::AlreadyExists, "working dir already exists");
       return Err(error);
